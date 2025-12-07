@@ -84,8 +84,6 @@ function handleHamburger() {
 
 
 
-
-
 // utility fn to handle tool change
 let Activetool = "pencil";
 
@@ -152,4 +150,3 @@ function redoMaker() {
   }
   return false;
 }
-

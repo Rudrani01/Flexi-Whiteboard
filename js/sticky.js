@@ -4,4 +4,3 @@ function createSticky() {
   const textarea = document.createElement("textarea");
   writingPad.appendChild(textarea);
 }
-

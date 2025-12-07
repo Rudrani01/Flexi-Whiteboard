@@ -41,6 +41,50 @@ board.addEventListener("mouseup", function(e) {
   isMouseDown = false;
 });
 
+// Touch events for mobile drawing
+board.addEventListener("touchstart", function(e) {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const rect = board.getBoundingClientRect();
+  ctx.beginPath();
+  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  isMouseDown = true;
+
+  let point = {
+    x: touch.clientX - rect.left,
+    y: touch.clientY - rect.top,
+    identifier: "mousedown",
+    color: ctx.strokeStyle,
+    width: ctx.lineWidth
+  };
+
+  undoStack.push(point);
+});
+
+board.addEventListener("touchmove", function(e) {
+  e.preventDefault();
+  if (isMouseDown == true) {
+    const touch = e.touches[0];
+    const rect = board.getBoundingClientRect();
+
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+    let point = {
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+      identifier: "mousemove",
+      color: ctx.strokeStyle,
+      width: ctx.lineWidth
+    };
+    undoStack.push(point);
+  }
+});
+
+board.addEventListener("touchend", function(e) {
+  e.preventDefault();
+  isMouseDown = false;
+});
+
 const undo = document.querySelector(".undo");
 const redo = document.querySelector(".redo");
 
